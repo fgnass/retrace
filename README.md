@@ -32,7 +32,7 @@ require('retrace/client/xhr')('/retrace');
 
 This will set `window.onerror` to a function that uses an `XMLHttpRequest` to send the stack trace to the provided URL – `/retrace` in this case.
 
-The package also contains another client that uses an `Image` beacon to transmit the data. You may use this as starting point for a custom implementation which might use an iframe, websocket or the fetch API as transport.
+The package also contains [another client](client/beacon.js) that uses an `Image` beacon to transmit the data. You may use this as starting point for a custom implementation which might use an iframe, websocket or the fetch API as transport.
 
 ## Using retrace to re-map the stacktraces
 
