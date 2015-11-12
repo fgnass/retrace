@@ -13,19 +13,15 @@ app.use(express.static(__dirname + '/fixture'));
 app.get('/retrace', function(req, res) {
   // Read the stack from a query parameter
   var stack = req.query.stack;
-  console.log('received stack');
   // ... pass it to retrace
   retrace.map(stack).then(function(s) {
     // ... and send back the re-mapped stack trace
-    console.log('sending mapped stack');
     res.send(s);
   })
   .catch(function(err) {
-    console.log(err);
     res.status(500).send(err);
   })
   .finally(function() {
-    console.log('done');
     res.end();
   })
 });
@@ -34,6 +30,7 @@ app.get('/retrace', function(req, res) {
 
 var user = process.env.SAUCE_USERNAME;
 var key = process.env.SAUCE_ACCESS_KEY;
+var job = process.env.TRAVIS_JOB_NUMBER;
 
 if (!user) throw new Error('SAUCE_USERNAME must be set.');
 if (!key) throw new Error('SAUCE_ACCESS_KEY must be set.');
@@ -46,8 +43,9 @@ function testBrowser(name) {
       browser.quit();
     });
     browser.init({
+      name: 'retrace build #' + job,
       browserName: name,
-      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+      tunnelIdentifier: job
     },
     function() {
       ['bundle', 'bundle.min' , 'bundle.inline'].forEach(function(s) {
@@ -77,12 +75,10 @@ function testScript(name) {
 
 var server = http.createServer(app);
 server.listen(8001, function() {
-  console.log('server is listening...');
   ['chrome', 'firefox'].forEach(testBrowser);
 });
 
 tap.tearDown(function() {
-  console.log('shutting down the server...');
   server.close();
   process.exit();
 });
