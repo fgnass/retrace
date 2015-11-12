@@ -56,10 +56,7 @@ function testBrowser(name) {
 
 function testScript(name) {
   return function(t) {
-    browser.get('http://localhost:8001/' + name + '.html', function() {
-      browser.source(function(err, src) {
-        console.log(err, src);
-      });
+    browser.get('http://travis.dev:8001/' + name + '.html', function() {
       browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
@@ -82,6 +79,7 @@ server.listen(8001, function() {
 });
 
 tap.tearDown(function() {
+  console.log('shutting down the server...');
   server.close();
   process.exit();
 });
