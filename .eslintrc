@@ -1,0 +1,19 @@
+{
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "brace-style": [2, "stroustrup"],
+    "consistent-return": 0,
+    "curly": [2, "multi-line"],
+    "eqeqeq": 0,
+    "no-path-concat": 0,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": [2, "nofunc"],
+    "quotes": [2, "single", "avoid-escape"],
+    "space-after-keywords": [2, "always"],
+    "space-before-blocks": [2, "always"],
+    "space-before-function-paren": [2, "never"],
+    "strict": [2, "never"]
+  }
+}
