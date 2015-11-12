@@ -27,7 +27,7 @@ module.exports = function(opts, cb) {
     xhr({ url: url }, function(err, resp, body) {
       if (cb) {
         if (err) cb('Error requesting ' + url + ': ' + err);
-        else cb(null, body);
+        else cb(null, 'Got ' + url + ': ' + body);
       }
     });
   });

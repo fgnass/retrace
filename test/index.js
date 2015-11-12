@@ -63,6 +63,7 @@ function testScript(name) {
       browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
+          console.log('TEXT', err, text);
           t.error(err, 'text retrieved');
           t.match(text, 'error.js:2:0', 'stack cointains location 1');
           t.match(text, 'error.js:6:0', 'stack cointains location 2');
