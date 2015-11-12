@@ -13,15 +13,19 @@ app.use(express.static(__dirname + '/fixture'));
 app.get('/retrace', function(req, res) {
   // Read the stack from a query parameter
   var stack = req.query.stack;
+  console.log('received stack');
   // ... pass it to retrace
   retrace.map(stack).then(function(s) {
     // ... and send back the re-mapped stack trace
+    console.log('sending mapped stack');
     res.send(s);
   })
   .catch(function(err) {
+    console.log(err);
     res.status(500).send(err);
   })
   .finally(function() {
+    console.log('done');
     res.end();
   })
 });
@@ -53,6 +57,9 @@ function testBrowser(name) {
 function testScript(name) {
   return function(t) {
     browser.get('http://localhost:8001/' + name + '.html', function() {
+      browser.source(function(err, src) {
+        console.log(err, src);
+      });
       browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
