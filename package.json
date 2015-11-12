@@ -1,6 +1,6 @@
 {
   "name": "retrace",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Use source maps on the server to generate readable browser stack traces",
   "repository": "fgnass/retrace",
   "main": "index.js",
