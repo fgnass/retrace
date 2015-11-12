@@ -52,8 +52,8 @@ function testBrowser(name) {
 
 function testScript(name) {
   return function(t) {
-    browser.get('http://localhost:5432/' + name + '.html', function() {
-      browser.waitForElementByCss('.stack' , 8000, function(err, el) {
+    browser.get('http://localhost:8001/' + name + '.html', function() {
+      browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
           t.error(err, 'text retrieved');
@@ -68,7 +68,7 @@ function testScript(name) {
 }
 
 var server = http.createServer(app);
-server.listen(5432, function() {
+server.listen(8001, function() {
   console.log('server is listening...');
   ['chrome', 'firefox'].forEach(testBrowser);
 });
