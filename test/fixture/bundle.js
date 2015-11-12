@@ -25,7 +25,10 @@ module.exports = function(opts, cb) {
     var target = opts.target || '/retrace';
     var url = target + '?stack=' + encodeURIComponent(stack);
     xhr({ url: url }, function(err, resp, body) {
-      if (cb) cb(err, body);
+      if (cb) {
+        if (err) cb('Error requesting ' + url + ': ' + err);
+        else cb(null, body);
+      }
     });
   });
 };
