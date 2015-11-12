@@ -29,10 +29,10 @@ app.get('/retrace', function(req, res) {
 /* Use sourcelabs to test differnt browsers. Requires a sauce connect tunnel! */
 
 var user = process.env.SAUCE_USERNAME;
-var key = process.env.SAUCE_ACCESSKEY;
+var key = process.env.SAUCE_ACCESS_KEY;
 
 if (!user) throw new Error('SAUCE_USERNAME must be set.');
-if (!key) throw new Error('SAUCE_ACCESSKEY must be set.');
+if (!key) throw new Error('SAUCE_ACCESS_KEY must be set.');
 
 var browser = wd.remote('localhost', 4445, user, key);
 
