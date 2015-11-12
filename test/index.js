@@ -45,7 +45,11 @@ function testBrowser(name) {
     t.tearDown(function() {
       browser.quit();
     });
-    browser.init({ browserName: name }, function() {
+    browser.init({
+      browserName: name,
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+    },
+    function() {
       ['bundle', 'bundle.min' , 'bundle.inline'].forEach(function(s) {
         t.test(s, testScript(s));
       });
