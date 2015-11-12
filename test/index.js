@@ -56,7 +56,7 @@ function testBrowser(name) {
 
 function testScript(name) {
   return function(t) {
-    browser.get('http://travis.dev:8001/' + name + '.html', function() {
+    browser.get('http://localhost:8001/' + name + '.html', function() {
       browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {

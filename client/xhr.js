@@ -1,4 +1,3 @@
-var xhr = require('xhr');
 var onerror = require('./onerror');
 
 module.exports = function(opts, cb) {
@@ -8,11 +7,18 @@ module.exports = function(opts, cb) {
   onerror(opts.window, function(stack) {
     var target = opts.target || '/retrace';
     var url = target + '?stack=' + encodeURIComponent(stack);
-    xhr({ url: url }, function(err, resp, body) {
-      if (cb) {
-        if (err) cb('Error requesting ' + url + ': ' + err);
-        else cb(null, 'Got ' + url + ': ' + body);
-      }
-    });
+    get(url, cb);
   });
 };
+
+function get(url, cb) {
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (req.readyState != 4) return false;
+    var status = req.status;
+    if (status != 200) return cb(status);
+    cb(null, req.responseText);
+  };
+  req.open('GET', url, true);
+  req.send();
+}
