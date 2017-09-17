@@ -38,7 +38,7 @@ Retrace.prototype.mapFrame = function(f) {
     return sm.originalPositionFor({
       source: f.fileName,
       line: f.lineNumber,
-      column: f.column
+      column: f.columnNumber
     });
   });
 };
