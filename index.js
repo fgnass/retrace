@@ -1,6 +1,6 @@
 var dataUriToBuffer = require('data-uri-to-buffer');
 var got = require('got');
-var parser = require('stacktrace-parser');
+var parser = require('error-stack-parser');
 var Promise = require('promise');
 var SourceMapConsumer = require('source-map').SourceMapConsumer;
 var url = require('url');
@@ -31,11 +31,11 @@ Retrace.prototype.map = function(stack) {
 };
 
 Retrace.prototype.mapFrame = function(f) {
-  return this.getSourceMapConsumer(f.file).then(function(sm) {
+  return this.getSourceMapConsumer(f.fileName).then(function(sm) {
     return sm.originalPositionFor({
-      source: f.file,
+      source: f.fileName,
       line: f.lineNumber,
-      column: f.column
+      column: f.columnNumber
     });
   });
 };
