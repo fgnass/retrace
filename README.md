@@ -90,3 +90,8 @@ retrace.resolve = function(url) {
 ## License
 
 MIT
+
+## Credits
+
+![](assets/saucelabs.svg)
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs](https://saucelabs.com)
