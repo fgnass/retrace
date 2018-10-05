@@ -6,6 +6,8 @@ var wd = require('wd');
 
 var retrace = require('../');
 
+console.log('Node Version:', process.version);
+
 /* Small express app that send sthe mapped stack trace back to the client. */
 
 var app = express();
