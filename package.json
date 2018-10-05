@@ -4,6 +4,9 @@
   "description": "Use source maps on the server to generate readable browser stack traces",
   "repository": "fgnass/retrace",
   "main": "index.js",
+  "engines": {
+    "node": ">=4.2.6"
+  },
   "scripts": {
     "test": "node test",
     "fixture": "cd test/fixture && browserify main -d | tee bundle.inline.js | exorcist bundle.js.map > bundle.js && uglifyjs bundle.js --in-source-map=bundle.js.map --source-map=bundle.min.js.map -o bundle.min.js"
@@ -12,10 +15,10 @@
   "license": "MIT",
   "dependencies": {
     "data-uri-to-buffer": "0.0.4",
+    "error-stack-parser": "^2.0.2",
     "got": "^5.1.0",
     "promise": "^7.0.4",
-    "source-map": "^0.5.3",
-    "stacktrace-parser": "^0.1.3"
+    "source-map": "^0.5.3"
   },
   "devDependencies": {
     "browserify": "^12.0.1",
