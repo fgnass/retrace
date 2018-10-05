@@ -12,10 +12,10 @@
   "license": "MIT",
   "dependencies": {
     "data-uri-to-buffer": "0.0.4",
+    "error-stack-parser": "^2.0.1",
     "got": "^5.1.0",
     "promise": "^7.0.4",
-    "source-map": "^0.5.3",
-    "stacktrace-parser": "^0.1.3"
+    "source-map": "^0.5.3"
   },
   "devDependencies": {
     "browserify": "^12.0.1",
