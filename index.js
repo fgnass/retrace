@@ -17,7 +17,7 @@ function Retrace() {
 }
 
 Retrace.prototype.map = function(stack) {
-  return Promise.all(parser.parse(stack).map(this.mapFrame, this))
+  return Promise.all(parser.parse({stack: stack}).map(this.mapFrame, this))
   .then(function(frames) {
     var msg = /^.*$/m.exec(stack)[0];
     return msg + '\n' + frames.map(function(f) {
