@@ -44,6 +44,7 @@ function testBrowser(name) {
     });
     browser.init({
       name: 'retrace build #' + job,
+      "build": job,
       browserName: name,
       public: "public",
       tunnelIdentifier: job
