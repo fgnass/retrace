@@ -102,8 +102,8 @@ server.listen(8001, function() {
     version: '35.0'
   }, {
     browserName: 'safari',
-    platform: 'OS X 10.10',
-    version: '8.0'
+    platform: 'macOS 10.12',
+    version: '10.1'
   }, {
     browserName: 'safari',
     platform: 'macOS 10.13',
