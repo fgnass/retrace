@@ -118,8 +118,8 @@ server.listen(8001, function() {
     version: '35.0'
   }, {
     browserName: 'iPhone',
-    platform: 'OS X 10.13',
-    version: '10'
+    platform: 'Mac 10.13',
+    version: '12.0'
   }, {
     browserName: 'Android',
     platform: 'Linux',
