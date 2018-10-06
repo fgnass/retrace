@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/fgnass/retrace.svg?branch=master)](https://travis-ci.org/fgnass/retrace)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/petermikitsh1.svg)](https://saucelabs.com/u/petermikitsh1)
+
 Using bundled and minified JavaScript code usually leaves you with hard to read stack traces. Some browser dev-tools automatically apply source maps to map locations back to the original source, but this doesn't help when you want to track all client-side errors on the server or when you have to deal with browsers that don't support source maps at all.
 
 _Retrace_ helps you to set up the following flow for your application:
