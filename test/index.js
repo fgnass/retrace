@@ -60,9 +60,6 @@ function testBrowser(browserConfig) {
     });
   });
 }
-
-var allPassed = true;
-
 function testScript(name) {
   return function(t) {
     browser.get('http://localhost:8001/' + name + '.html', function() {
@@ -73,8 +70,7 @@ function testScript(name) {
           t.match(text, 'error.js:2:0', 'stack cointains location 1');
           t.match(text, 'error.js:6:0', 'stack cointains location 2');
           t.match(text, 'main:8:0', 'stack cointains location 3');
-          allPassed = allPassed && t.passing();
-          browser.sauceJobStatus(allPassed);
+          browser.sauceJobStatus(t.passing());
           t.end();
         });
       });
