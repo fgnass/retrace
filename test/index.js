@@ -37,15 +37,18 @@ if (!key) throw new Error('SAUCE_ACCESS_KEY must be set.');
 
 var browser = wd.remote('localhost', 4445, user, key);
 
-function testBrowser(name) {
-  tap.test(name, function(t) {
+function testBrowser(browserConfig) {
+  var testName = browserConfig.browserName + ' - ' + browserConfig.platform;
+  tap.test(testName, function(t) {
     t.tearDown(function() {
       browser.quit();
     });
     browser.init({
-      name: name,
-      "build": job,
-      browserName: name,
+      name: testName,
+      build: job,
+      browserName: browserConfig.browserName,
+      platform: browserConfig.platform,
+      version: browserConfig.version,
       public: "public",
       tunnelIdentifier: job
     },
@@ -81,7 +84,48 @@ function testScript(name) {
 
 var server = http.createServer(app);
 server.listen(8001, function() {
-  ['chrome', 'firefox'].forEach(testBrowser);
+  var browsers = [{
+    browserName: 'internet explorer',
+    platform: 'Windows 8.1',
+    version: '11.0'
+  }, {
+    browserName: 'MicrosoftEdge',
+    platform: 'Windows 10',
+    version: '13.10586'
+  }, {
+    browserName: 'firefox',
+    platform: 'Windows 8.1',
+    version: '36.0'
+  }, {
+    browserName: 'chrome',
+    platform: 'Windows 10',
+    version: '35.0'
+  }, {
+    browserName: 'safari',
+    platform: 'OS X 10.10',
+    version: '8.0'
+  }, {
+    browserName: 'safari',
+    platform: 'macOS 10.13',
+    version: '11.1'
+  }, {
+    browserName: 'firefox',
+    platform: 'macOS 10.13',
+    version: '36.0'
+  }, {
+    browserName: 'chrome',
+    platform: 'macOS 10.13',
+    version: '35.0'
+  }, {
+    browserName: 'iPhone',
+    platform: 'OS X 10.12',
+    version: '9.3'
+  }, {
+    browserName: 'Android',
+    platform: 'Linux',
+    version: '5.1'
+  }];
+  browsers.forEach(testBrowser);
 });
 
 tap.tearDown(function() {
