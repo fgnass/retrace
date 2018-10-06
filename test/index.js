@@ -87,7 +87,11 @@ server.listen(8001, function() {
   }, {
     browserName: 'MicrosoftEdge',
     platform: 'Windows 10',
-    version: '13.10586'
+    version: '16'
+  }, {
+    browserName: 'MicrosoftEdge',
+    platform: 'Windows 10',
+    version: 'latest'
   }, {
     browserName: 'firefox',
     platform: 'Windows 8.1',
