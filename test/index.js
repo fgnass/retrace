@@ -56,6 +56,7 @@ function testBrowser(browserConfig) {
       ['bundle', 'bundle.min' , 'bundle.inline'].forEach(function(s) {
         t.test(s, testScript(s));
       });
+      t.test('map-missing', testMissing('map-missing'))
       t.end();
     });
   });
@@ -67,9 +68,26 @@ function testScript(name) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
           t.error(err, 'text retrieved');
-          t.match(text, 'error.js:2:0', 'stack cointains location 1');
-          t.match(text, 'error.js:6:0', 'stack cointains location 2');
-          t.match(text, 'main:8:0', 'stack cointains location 3');
+          t.match(text, 'error.js:2:0', 'stack contains location 1');
+          t.match(text, 'error.js:6:0', 'stack contains location 2');
+          t.match(text, 'main:8:0', 'stack contains location 3');
+          browser.sauceJobStatus(t.passing());
+          t.end();
+        });
+      });
+    });
+  };
+}
+function testMissing(name) {
+  return function(t) {
+    browser.get('http://localhost:8001/' + name + '.html', function() {
+      browser.waitForElementByCss('.stack' , 10000, function(err, el) {
+        t.error(err, 'stack added to page');
+        el.text(function(err, text) {
+          t.error(err, 'text retrieved');
+          t.match(text, 'map-missing.js', 'stack contains location 1');
+          t.match(text, 'map-missing.js', 'stack contains location 2');
+          t.match(text, 'map-missing.js', 'stack contains location 3');
           browser.sauceJobStatus(t.passing());
           t.end();
         });
