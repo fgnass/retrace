@@ -32,18 +32,20 @@ Retrace.prototype.map = function(stack) {
 
 Retrace.prototype.mapFrame = function(f) {
   return this.getSourceMapConsumer(f.fileName).then(function(sm) {
-    return sm.originalPositionFor({
+    var m = sm.originalPositionFor({
       source: f.fileName,
       line: f.lineNumber,
       column: f.columnNumber
     });
+    if(!m.name) m.name = f.functionName;
+    return m;
   });
 };
 
 Retrace.prototype.register = function(uri, sourceMap) {
   return this.consumers[uri] = Promise.resolve(sourceMap).then(function(sm) {
     if (typeof sm == 'string') sm = JSON.parse(sm);
-    if (!sm) sm = identity;
+    if (!sm) return identity;
     return new SourceMapConsumer(sm);
   });
 }
