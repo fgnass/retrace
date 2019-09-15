@@ -32,11 +32,13 @@ Retrace.prototype.map = function(stack) {
 
 Retrace.prototype.mapFrame = function(f) {
   return this.getSourceMapConsumer(f.fileName).then(function(sm) {
-    return sm.originalPositionFor({
+    var m = sm.originalPositionFor({
       source: f.fileName,
       line: f.lineNumber,
       column: f.columnNumber
     });
+    if(!m.name) m.name = f.functionName;
+    return m;
   });
 };
 
