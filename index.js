@@ -43,7 +43,7 @@ Retrace.prototype.mapFrame = function(f) {
 Retrace.prototype.register = function(uri, sourceMap) {
   return this.consumers[uri] = Promise.resolve(sourceMap).then(function(sm) {
     if (typeof sm == 'string') sm = JSON.parse(sm);
-    if (!sm) sm = identity;
+    if (!sm) return identity;
     return new SourceMapConsumer(sm);
   });
 }
