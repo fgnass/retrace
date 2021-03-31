@@ -97,3 +97,9 @@ MIT
 
 ![](assets/saucelabs.svg)
 Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs](https://saucelabs.com)
+
+## Engine compatibility
+
+Tests currently run on node 6.
+
+Until recently tests have been running on node 4.2 so we should be good to say the library works on node 4.2 but as of late a test library dependency has been updated and requires node 6 so this is the official minimum now.

@@ -5,7 +5,7 @@
   "repository": "fgnass/retrace",
   "main": "index.js",
   "engines": {
-    "node": ">=4.2.6"
+    "node": ">=6"
   },
   "scripts": {
     "test": "node test",
