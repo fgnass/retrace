@@ -1,9 +1,9 @@
-var dataUriToBuffer = require('data-uri-to-buffer');
-var got = require('got');
-var parser = require('error-stack-parser');
-var Promise = require('promise');
-var SourceMapConsumer = require('source-map').SourceMapConsumer;
-var url = require('url');
+import dataUriToBuffer from 'data-uri-to-buffer';
+import got from 'got';
+import parser from 'error-stack-parser';
+import Promise from 'promise';
+import { SourceMapConsumer } from 'source-map';
+import url from 'url';
 
 /* SourceMapConsumer that returns positions verbatim. */
 var identity = {
@@ -80,4 +80,4 @@ Retrace.prototype.clearCache = function() {
   this.consumers = {};
 };
 
-module.exports = new Retrace();
+export default new Retrace();

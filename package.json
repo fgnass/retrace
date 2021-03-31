@@ -5,10 +5,10 @@
   "repository": "fgnass/retrace",
   "main": "index.js",
   "engines": {
-    "node": ">=4.2.6"
+    "node": ">=6"
   },
   "scripts": {
-    "test": "node test",
+    "test": "npx wdio",
     "fixture": "cd test/fixture && browserify main -d | tee bundle.inline.js | exorcist bundle.js.map > bundle.js && uglifyjs bundle.js --in-source-map=bundle.js.map --source-map=bundle.min.js.map -o bundle.min.js"
   },
   "author": "Felix Gnass <fgnass@gmail.com>",
@@ -21,12 +21,16 @@
     "source-map": "^0.5.3"
   },
   "devDependencies": {
+    "@wdio/browser-runner": "~8.14.0",
+    "@wdio/cli": "~8.14.0",
+    "@wdio/sauce-service": "8.14.3",
+    "@wdio/spec-reporter": "~8.14.0",
     "browserify": "^12.0.1",
     "eslint": "^1.9.0",
     "exorcist": "^0.4.0",
     "express": "^4.13.3",
-    "tap": "^2.2.0",
     "uglify-js": "^2.5.0",
-    "wd": "^0.4.0"
-  }
+    "webdriverio": "~8.14.0"
+  },
+  "type": "module"
 }
