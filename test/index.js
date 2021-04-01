@@ -35,7 +35,7 @@ var job = process.env.TRAVIS_JOB_NUMBER;
 if (!user) throw new Error('SAUCE_USERNAME must be set.');
 if (!key) throw new Error('SAUCE_ACCESS_KEY must be set.');
 
-var browser = wd.remote('localhost', 4445, user, key);
+var browser = wd.remote(`https://${user}:${key}@ondemand.saucelabs.com/wd/hub`);
 
 function testBrowser(browserConfig) {
   var testName = browserConfig.browserName + ' - ' + browserConfig.platform;
@@ -52,7 +52,8 @@ function testBrowser(browserConfig) {
       public: "public",
       tunnelIdentifier: job
     },
-    function() {
+    function(err) {
+	  t.error(err, 'browser.init ' + testName);
       ['bundle', 'bundle.min' , 'bundle.inline'].forEach(function(s) {
         t.test(s, testScript(s));
       });
@@ -62,7 +63,8 @@ function testBrowser(browserConfig) {
 }
 function testScript(name) {
   return function(t) {
-    browser.get('http://localhost:8001/' + name + '.html', function() {
+    browser.get('http://localhost:8001/' + name + '.html', function(err) {
+	  t.error(err, 'page loaded');
       browser.waitForElementByCss('.stack' , 10000, function(err, el) {
         t.error(err, 'stack added to page');
         el.text(function(err, text) {
@@ -84,46 +86,46 @@ server.listen(8001, function() {
     browserName: 'internet explorer',
     platform: 'Windows 8.1',
     version: '11.0'
-  }, {
-    browserName: 'MicrosoftEdge',
-    platform: 'Windows 10',
-    version: '16'
-  }, {
-    browserName: 'MicrosoftEdge',
-    platform: 'Windows 10',
-    version: 'latest'
-  }, {
-    browserName: 'firefox',
-    platform: 'Windows 8.1',
-    version: '36.0'
-  }, {
-    browserName: 'chrome',
-    platform: 'Windows 10',
-    version: '35.0'
-  }, {
-    browserName: 'safari',
-    platform: 'macOS 10.12',
-    version: '10.1'
-  }, {
-    browserName: 'safari',
-    platform: 'macOS 10.13',
-    version: '11.1'
-  }, {
-    browserName: 'firefox',
-    platform: 'macOS 10.13',
-    version: '36.0'
-  }, {
-    browserName: 'chrome',
-    platform: 'macOS 10.13',
-    version: '35.0'
-  }, {
-    browserName: 'iPhone',
-    platform: 'Mac 10.13',
-    version: '12.0'
-  }, {
-    browserName: 'Android',
-    platform: 'Linux',
-    version: '5.1'
+//  }, {
+//    browserName: 'MicrosoftEdge',
+//    platform: 'Windows 10',
+//    version: '16'
+//  }, {
+//    browserName: 'MicrosoftEdge',
+//    platform: 'Windows 10',
+//    version: 'latest'
+//  }, {
+//    browserName: 'firefox',
+//    platform: 'Windows 8.1',
+//    version: '36.0'
+//  }, {
+//    browserName: 'chrome',
+//    platform: 'Windows 10',
+//    version: '35.0'
+//  }, {
+//    browserName: 'safari',
+//    platform: 'macOS 10.12',
+//    version: '10.1'
+//  }, {
+//    browserName: 'safari',
+//    platform: 'macOS 10.13',
+//    version: '11.1'
+//  }, {
+//    browserName: 'firefox',
+//    platform: 'macOS 10.13',
+//    version: '36.0'
+//  }, {
+//    browserName: 'chrome',
+//    platform: 'macOS 10.13',
+//    version: '35.0'
+//  }, {
+//    browserName: 'iPhone',
+//    platform: 'Mac 10.13',
+//    version: '12.0'
+//  }, {
+//    browserName: 'Android',
+//    platform: 'Linux',
+//    version: '5.1'
   }];
   browsers.forEach(testBrowser);
 });
