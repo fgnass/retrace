@@ -30,6 +30,26 @@ Retrace.prototype.map = function(stack) {
   });
 };
 
+
+Retrace.prototype.getStackInfo = function(stack) {
+  return Promise.all(parser.parse(stack).map(this.mapFrame, this))
+  .then(function(frames) {
+    var msg = /^.*$/m.exec(stack)[0];
+    var reMappedStack = msg + '\n' + frames.map(function(f) {
+      var pos = f.source;
+      if (f.line) pos += ':' + f.line;
+      if (f.column >= 0) pos += ':' + f.column;
+      var loc = f.name ? f.name + '(' + pos + ')' : pos;
+      return '    at ' + loc;
+    }).join('\n');
+    var lastStack = frames[0];
+    var source = lastStack.source
+    var line = lastStack.line
+    var column = lastStack.column
+    return {stack: reMappedStack, source, line, column}
+  });
+};
+
 Retrace.prototype.mapFrame = function(f) {
   return this.getSourceMapConsumer(f.fileName).then(function(sm) {
     return sm.originalPositionFor({
